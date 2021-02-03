@@ -150,4 +150,7 @@ Lets run the container
 $ podman container run hello-world:v1
 Hello World Podman!!
 ```
-
+# References
+* https://itnext.io/podman-and-skopeo-on-macos-1b3b9cf21e60
+* https://developers.redhat.com/blog/2020/02/12/podman-for-macos-sort-of/
+* https://www.redhat.com/sysadmin/podman-clients-macos-windows
