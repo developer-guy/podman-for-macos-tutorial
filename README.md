@@ -111,3 +111,43 @@ fedbox-remote*  /Users/batuhan.apaydin/.local/machine/machines/remote-podman-ser
 ```
 
 We can use to create and run our image using podman now.
+```bash
+$ podman image build -t hello-world:v1 .
+STEP 1: FROM golang:1.15.7-alpine AS build
+Getting image source signatures
+Copying blob sha256:6422294da7d35128e72551ecf15f3a4d9577e5cfa516b6d62fe8b841a9470cb3
+Copying blob sha256:4c0d98bf9879488e0407f897d9dd4bf758555a78e39675e72b5124ccf12c2580
+Copying blob sha256:9e181322f1e7b3ebee5deeef0af7d13619801172e91d2d73dcf79b5d53d82d91
+Copying blob sha256:8b36f00a8e74ce31a867744519cc5db8c4aaeb181cffcda1b4d8269b1cc7f336
+Copying blob sha256:5e5ebcc3e85238e4fbf5ab2428f9ed61dcede6c59b605d56b2f02fb991c70850
+Copying config sha256:54d042506068c9699d4236315fa76ea8789415c1079bcaff35fb3730ea649547
+Writing manifest to image destination
+Storing signatures
+STEP 2: WORKDIR /app
+STEP 3: ENV CGO_ENABLED=0     GOOS=linux     GOARCH=amd64
+STEP 4: COPY ./ ./
+STEP 5: RUN go build -o hello-world
+STEP 6: FROM scratch
+STEP 7: COPY --from=build /app/hello-world ./
+STEP 8: ENTRYPOINT ["./hello-world"]
+STEP 9: COMMIT hello-world:v1
+Getting image source signatures
+Copying blob sha256:39bc0239cca0d6772ddfd0870ed9a7e59e9a34326b95f1676b99d48112a61d36
+Copying config sha256:693f668c708e56bb5eb7610187851b20c8ca0560716a5a5d6d5b7c202a9db13f
+Writing manifest to image destination
+Storing signatures
+--> 693f668c708
+693f668c708e56bb5eb7610187851b20c8ca0560716a5a5d6d5b7c202a9db13f
+$ podman image list
+REPOSITORY                     TAG            IMAGE ID      CREATED             SIZE
+localhost/hello-world          v1             693f668c708e  About a minute ago  2.03 MB
+docker.io/library/golang       1.15.7-alpine  54d042506068  5 days ago          308 MB
+docker.io/library/hello-world  latest         bf756fb1ae65  13 months ago       20 kB
+```
+
+Lets run the container
+```bash
+$ podman container run hello-world:v1
+hello-world
+```
+
